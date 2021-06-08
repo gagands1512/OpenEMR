@@ -1,31 +1,35 @@
 package com.cyient.test;
 
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class DemoTest {
 	
-	@DataProvider
-	public Object[][] validData(){
-		Object[][] main = new Object[3][2];
+	public static void main(String[] args) throws IOException {
+		FileInputStream file = new FileInputStream("src/test/resources/testdata/Book1.xlsx");
 		
-		main[0][0]="bala";
-		main[0][1]="bala123";
+		XSSFWorkbook book = new XSSFWorkbook(file);
+		XSSFSheet sheet = book.getSheet("validCredentialTest");
+		for(int i=0;i<3;i++) {
+			for(int j=0;j<4;j++) {
+				XSSFRow row = sheet.getRow(i);
+				XSSFCell cell = row.getCell(j);
+				DataFormatter format = new DataFormatter();
+				
+				String cellValue = format.formatCellValue(cell);
+				System.out.print(cellValue+" ");
+			}
+			System.out.println();
+			}
+		}
 		
-		main[1][0]="peter";
-		main[1][1]="peter123";
+
 		
-		main[2][0]="john";
-		main[2][1]="john123";
-		
-		return main;
-		
-	}
-	
-	@Test(dataProvider = "validData")
-	public void validTest(String username, String password) {
-		System.out.println("Test Run" + username + password);
-		
-	}
 
 }
