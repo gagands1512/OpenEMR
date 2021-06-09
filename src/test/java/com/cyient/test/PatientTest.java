@@ -1,8 +1,6 @@
 package com.cyient.test;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -31,22 +29,20 @@ public class PatientTest extends WebDriverWrapper{
 		
 		PatientFinderPage patientfinpage = new PatientFinderPage(driver);
 		patientfinpage.switchToPatientPage();
+		patientfinpage.clickOnAddNewPatient();
 		
 		driver.switchTo().defaultContent();
 		
-		driver.switchTo().frame(driver.findElement(By.name("pat")));
-		
 		AddPatientPage addpatientpage = new AddPatientPage(driver);
+		addpatientpage.switchToAddPatientPage();
 		addpatientpage.selectTitle("Mr.");
 		addpatientpage.firstName("Gagan");
 		addpatientpage.lastName("Sharma");
-		addpatientpage.publicId("897");
+		addpatientpage.publicId("8974");
 		addpatientpage.dob("2021-06-07");
-		addpatientpage.gender("Male");
+		addpatientpage.gender("Male");		
+		addpatientpage.create();
 		
-		
-		
-		driver.findElement(By.id("create")).click();
 		
 		driver.switchTo().defaultContent();
 		
@@ -60,7 +56,7 @@ public class PatientTest extends WebDriverWrapper{
 		
 		driver.switchTo().alert().accept();
 		
-		driver.findElement(By.className("closeDlgIframe")).click();
+		//driver.findElement(By.className("closeDlgIframe")).click();
 		
 		driver.switchTo().defaultContent();		
 		
