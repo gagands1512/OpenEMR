@@ -16,14 +16,20 @@ public class DemoTest {
 		
 		XSSFWorkbook book = new XSSFWorkbook(file);
 		XSSFSheet sheet = book.getSheet("validCredentialTest");
-		for(int i=0;i<3;i++) {
-			for(int j=0;j<4;j++) {
+		
+		int rowCount = sheet.getPhysicalNumberOfRows();
+		
+		int cellCount = sheet.getRow(0).getPhysicalNumberOfCells();
+		
+		Object [][] main = new Object[rowCount-1][cellCount];
+		
+		for(int i=0;i<rowCount;i++) {
+			for(int j=0;j<cellCount;j++) {
 				XSSFRow row = sheet.getRow(i);
 				XSSFCell cell = row.getCell(j);
 				DataFormatter format = new DataFormatter();
 				
-				String cellValue = format.formatCellValue(cell);
-				System.out.print(cellValue+" ");
+				main[i][j] = format.formatCellValue(cell);
 			}
 			System.out.println();
 			}

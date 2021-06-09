@@ -11,9 +11,11 @@ import com.cyient.page.LoginPage;
 import com.cyient.utilities.DataProviderUtils;
 
 public class LoginTest extends WebDriverWrapper{
-	
-	
-	
+
+
+	public Object[][] main;
+
+
 	@Test(dataProvider="invalidCredentialData",dataProviderClass = DataProviderUtils.class)
     public void invalidCredentialTest(String username,String password,String languageText,String expectedValue)
     {
@@ -34,7 +36,7 @@ public class LoginTest extends WebDriverWrapper{
     }
 	
 	
-	@Test(dataProvider="validCredentialData",dataProviderClass = DataProviderUtils.class)
+	@Test(dataProvider="validCredentialExcelData",dataProviderClass = DataProviderUtils.class)
 	public void validCredentialTest(String username,String password,String languageText,String expectedValue) {
 		
 		 LoginPage login = new LoginPage(driver);

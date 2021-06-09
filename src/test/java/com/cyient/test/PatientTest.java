@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.cyient.base.WebDriverWrapper;
+import com.cyient.page.AddPatientPage;
 import com.cyient.page.DashboardPage;
 import com.cyient.page.LoginPage;
 import com.cyient.page.PatientFinderPage;
@@ -21,8 +22,7 @@ public class PatientTest extends WebDriverWrapper{
 		LoginPage login = new LoginPage(driver);
 		login.sendUsername("admin");		 
 		login.sendPassword("pass");		
-		Select selectLanguage = new Select(driver.findElement(By.name("languageChoice")));
-		selectLanguage.selectByVisibleText("English (Indian)");		
+		login.selectLanguage("English (Indian)");
 		login.clickOnLogin();
 		
 		DashboardPage dashboard = new DashboardPage(driver);
@@ -36,17 +36,15 @@ public class PatientTest extends WebDriverWrapper{
 		
 		driver.switchTo().frame(driver.findElement(By.name("pat")));
 		
-		Select sl = new Select(driver.findElement(By.id("form_title")));
-		sl.selectByVisibleText("Mr.");
+		AddPatientPage addpatientpage = new AddPatientPage(driver);
+		addpatientpage.selectTitle("Mr.");
+		addpatientpage.firstName("Gagan");
+		addpatientpage.lastName("Sharma");
+		addpatientpage.publicId("897");
+		addpatientpage.dob("2021-06-07");
+		addpatientpage.gender("Male");
 		
-		driver.findElement(By.id("form_fname")).sendKeys("Gagan");
 		
-		driver.findElement(By.id("form_lname")).sendKeys("Sharma");
-		
-		driver.findElement(By.id("form_pubpid")).sendKeys("897");
-		driver.findElement(By.id("form_DOB")).sendKeys("2021-06-07");
-		Select slGender = new Select(driver.findElement(By.id("form_sex")));
-		slGender.selectByVisibleText("Male");
 		
 		driver.findElement(By.id("create")).click();
 		
